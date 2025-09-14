@@ -1,0 +1,27 @@
+---
+# --- Send report email ---
+- name: Send email report with service diff and update history
+  ansible.builtin.mail:
+    host: "{{ dnf_update_report_email_host }}"
+    port: "{{ dnf_update_report_email_port }}"
+    username: "{{ dnf_update_report_email_user | default(omit) }}"
+    password: "{{ dnf_update_report_email_password | default(omit) }}"
+    to: "{{ dnf_update_report_email_to }}"
+    from: "{{ dnf_update_report_email_from }}"
+    subject: "Update report for {{ inventory_hostname }} on {{ dnf_update_log_timestamp }}"
+    body: |
+      Host: {{ inventory_hostname }}
+      Timestamp: {{ dnf_update_log_timestamp }}
+
+      === Service Changes ===
+      {% if dnf_update_changed_services %}
+      {% for line in dnf_update_changed_services %}
+      {{ line }}
+      {% endfor %}
+      {% else %}
+      No service changes detected
+      {% endif %}
+
+      === DNF Update History ===
+      {{ dnf_update_log.stdout | default('No update history available') }}
+  when: dnf_update_send_report

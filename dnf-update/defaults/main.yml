@@ -1,0 +1,22 @@
+---
+# Log settings
+dnf_update_log_dir: "/var/log/dnf_update"
+dnf_update_log_timestamp: ""
+
+# Update settings
+dnf_update_dry_run: false
+dnf_update_reboot: true
+dnf_update_reboot_timeout: 300
+
+# Enable or disable automatic snapshots before updates
+# Proxmox snapshot requires the `proxmox-snapshot` role available in your environment
+dnf_update_proxmox_snapshot: false
+
+# Email reporting
+dnf_update_send_report: true
+dnf_update_report_email_host: "smtp.examplecorp.io"
+dnf_update_report_email_port: 465
+dnf_update_report_email_user: "mailuser"
+dnf_update_report_email_password: "123456789ABCDEFG"
+dnf_update_report_email_to: "admin@examplecorp.io"
+dnf_update_report_email_from: "update@examplecorp.io"

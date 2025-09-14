@@ -1,0 +1,20 @@
+---
+# 1. Precheck: log directory, timestamp, services
+- import_tasks: precheck.yml
+
+# 2. Include Snapshot before any changes
+- name: Create snapshot before update
+  include_role:
+    name: proxmox-snapshot
+  vars:
+    snapshot_target: "{{ inventory_hostname }}"
+  when: dnf_update_proxmox_snapshot | bool
+
+# 3. Update packages
+- import_tasks: update.yml
+
+# 4. Postcheck: gather services after update and log diffs
+- import_tasks: postcheck.yml
+
+# 5. Send report
+- import_tasks: report.yml

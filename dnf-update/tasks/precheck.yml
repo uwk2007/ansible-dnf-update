@@ -1,0 +1,16 @@
+---
+- name: Ensure log directory exists on remote host
+  file:
+    path: "{{ dnf_update_log_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Generate timestamp for logs
+  set_fact:
+    dnf_update_log_timestamp: "{{ lookup('ansible.builtin.pipe', 'date +%Y-%m-%d_%H-%M') }}"
+  changed_when: false
+
+- name: Gather running services before update
+  command: systemctl list-units --type=service --all --no-pager --no-legend --plain
+  register: dnf_update_running_services_before
+  changed_when: false

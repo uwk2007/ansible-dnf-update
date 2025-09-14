@@ -1,0 +1,21 @@
+---
+# --- Gather running services after update ---
+- name: Gather running services after update
+  command: systemctl list-units --type=service --all --no-pager --no-legend --plain
+  register: dnf_update_running_services_after
+  changed_when: false
+
+# --- Compare services ---
+- name: Determine changed services
+  set_fact:
+    dnf_update_changed_services: >-
+      {{
+        (dnf_update_running_services_before.stdout_lines | difference(dnf_update_running_services_after.stdout_lines))
+        + (dnf_update_running_services_after.stdout_lines | difference(dnf_update_running_services_before.stdout_lines))
+      }}
+
+# --- Save changed services to log ---
+- name: Save changed services log
+  copy:
+    content: "{{ dnf_update_changed_services | join('\n') | default('No service changes detected') }}"
+    dest: "{{ dnf_update_log_dir }}/{{ dnf_update_log_timestamp }}_services_diff.log"

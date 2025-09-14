@@ -1,0 +1,32 @@
+---
+# --- Perform package updates ---
+- name: Update all packages
+  dnf:
+    name: "*"
+    state: latest
+  register: dnf_update_result
+  when: not dnf_update_dry_run
+
+# --- Gather last DNF history info ---
+- name: Gather last DNF history info
+  shell: dnf history info last
+  register: dnf_update_log
+  changed_when: false
+
+# --- Reboot if required ---
+- name: Reboot system if updates were applied
+  reboot:
+    reboot_timeout: "{{ dnf_update_reboot_timeout }}"
+  when:
+    - dnf_update_reboot
+    - not dnf_update_dry_run
+    - dnf_update_result.changed
+
+# --- Wait for system back online ---
+- name: Wait for SSH after reboot
+  wait_for_connection:
+    timeout: "{{ dnf_update_reboot_timeout }}"
+  when:
+    - dnf_update_reboot
+    - not dnf_update_dry_run
+    - dnf_update_result.changed
