@@ -16,7 +16,7 @@ dnf_update_proxmox_snapshot: false
 dnf_update_send_report: true
 dnf_update_report_email_host: "smtp.examplecorp.io"
 dnf_update_report_email_port: 465
-dnf_update_report_email_user: "mailuser"
-dnf_update_report_email_password: "123456789ABCDEFG"
+dnf_update_report_email_user: "PLACEHOLDER_USER"
+dnf_update_report_email_password: "PLACEHOLDER_PASSWORD"
 dnf_update_report_email_to: "admin@examplecorp.io"
 dnf_update_report_email_from: "update@examplecorp.io"
